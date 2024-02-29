@@ -138,21 +138,20 @@ public class MSButton
           
             
     }
-    public void draw () 
-    {    
-        if (flagged)
-            fill(0);
-        else if( clicked && mines.contains(this) ) 
-             fill(255,0,0);
-        else if(clicked)
-            fill( 200 );
-        else 
-            fill( 100 );
-
-        rect(x, y, width, height);
-        fill(0);
-        text(myLabel,x+width/2,y+height/2);
-    }
+    public void draw () {    
+    if (flagged)
+        fill(255, 0, 0); // Red for flagged blocks
+    else if (clicked && mines.contains(this)) 
+        fill((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)); // Random color for clicked bombs
+    else if (clicked)
+        fill(200);
+    else 
+        fill(100);
+    
+    rect(x, y, width, height);
+    fill(0);
+    text(myLabel, x + width / 2, y + height / 2);
+}
     public void setLabel(String newLabel)
     {
         myLabel = newLabel;
