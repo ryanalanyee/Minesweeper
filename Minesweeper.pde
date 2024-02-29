@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
-private int NUM_ROWS = 10;
-private int NUM_COLS = 10;
-private int NUM_MINES = 15;
+private int NUM_ROWS = 8;
+private int NUM_COLS = 8;
+private int NUM_MINES = 10;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons that are mined
 void setup ()
@@ -59,7 +59,7 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    buttons[1][1].setLabel("You lose :(");
+    buttons[1][1].setLabel("you lose ");
     for(int r = 0; r < buttons.length; r++){
       for(int c = 0; c < buttons[r].length; c++){
         if(mines.contains(buttons[r][c]))
@@ -69,7 +69,7 @@ public void displayLosingMessage()
 }
 public void displayWinningMessage()
 {
-    buttons[1][1].setLabel("You Win!");
+    buttons[1][1].setLabel("WINNER WINNER CHICKEN DINNER");
 }
 public boolean isValid(int r, int c)
 {
@@ -144,7 +144,7 @@ public class MSButton
     else if (clicked && mines.contains(this)) 
         fill((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)); // Random color for clicked bombs
     else if (clicked)
-        fill(200);
+        fill(225);
     else 
         fill(100);
     
