@@ -6,6 +6,8 @@ private int NUM_COLS = 8;
 private int NUM_MINES = 10;
 private MSButton[][] buttons; // 2d array of minesweeper buttons
 private ArrayList<MSButton> mines; // ArrayList of just the minesweeper buttons that are mined
+private boolean gameLost = false; // Tracks if the game has been lost
+private boolean gameWon = false; // Tracks if the game has been won
 
 void setup() {
     // initializes the empty indexes
@@ -39,7 +41,9 @@ public void setMines() {
 
 public void draw() {
     background(0);
-    if (isWon()) {
+    if (gameLost) {
+        displayLosingMessage();
+    } else if (gameWon) {
         displayWinningMessage();
     }
 }
@@ -110,14 +114,16 @@ public class MSButton {
 
     // called by manager
     public void mousePressed() {
+        if (gameLost) return; // Do not allow further interaction if the game is lost
         clicked = true;
         if (mouseButton == RIGHT) {
             flagged = !flagged;
             if (!flagged)
                 clicked = false;
-        } else if (mines.contains(this))
+        } else if (mines.contains(this)) {
+            gameLost = true;
             displayLosingMessage();
-        else if (countMines(myRow, myCol) > 0)
+        } else if (countMines(myRow, myCol) > 0)
             setLabel(countMines(myRow, myCol));
         else {
             for (int r = myRow - 1; r <= myRow + 1; r++) {
@@ -127,6 +133,9 @@ public class MSButton {
                 }
             }
 
+        }
+        if (isWon()) {
+            gameWon = true;
         }
     }
 
@@ -157,4 +166,5 @@ public class MSButton {
         return flagged;
     }
 }
+
 
